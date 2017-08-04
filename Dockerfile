@@ -1,6 +1,6 @@
 FROM python:3
 
-RUN pip install flask requests
+RUN pip install flask requests flask_cors
 
 COPY main.py .
 
