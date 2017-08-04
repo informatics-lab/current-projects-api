@@ -10,7 +10,7 @@ MEMBERS_CACHE = {}
 
 AUTH = {'key': os.environ['API_KEY'],
         'token': os.environ['API_TOKEN']}
-PUBLICISE_LABEL = 'public'
+DONT_PUBLICISE_LABEL = 'private'
 
 
 app = Flask(__name__)
@@ -25,8 +25,8 @@ def hit_member_api(memberID):
     except:
         member_name = None
     try:
-        member_image = 'https://www.gravatar.com/avatar/'+trello_member['gravatarHash']
-    except:
+        member_image = 'https://trello-avatars.s3.amazonaws.com/'+trello_member['avatarHash']+"/170.png"
+    except TypeError:
         member_image = None
     return {"name": member_name, "image": member_image}
 
@@ -66,7 +66,7 @@ def get_active_projects():
     output = []
     
     for card in cards:
-        if PUBLICISE_LABEL in [label['name'] for label in card['labels']]:
+        if DONT_PUBLICISE_LABEL not in [label['name'] for label in card['labels']]:
             this_output = {}
             this_output['project_name'] = card['name']
             this_output['project_image'] = get_card_image(card['id'], card['idAttachmentCover'])
