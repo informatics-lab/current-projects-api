@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - image: informaticslab/current-projects:latest
-          imagePullPolicy: Never
+          imagePullPolicy: Always
           name: current-projects
           env:
             - name: API_KEY
