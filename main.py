@@ -3,6 +3,7 @@
 import os
 import requests
 from flask import Flask
+from flask_cors import CORS, cross_origin
 import json
 
 CARDS_IMAGE_CACHE = {}
@@ -14,6 +15,7 @@ DONT_PUBLICISE_LABEL = 'private'
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 def hit_member_api(memberID):
