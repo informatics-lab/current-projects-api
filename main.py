@@ -33,10 +33,10 @@ def hit_member_api(memberID):
 
 def get_member(memberID):
     try:
-        member = MEMBERS_CACHE['memberID']
+        member = MEMBERS_CACHE[memberID]
     except KeyError:
         member = hit_member_api(memberID)
-        MEMBERS_CACHE['memberID'] = member
+        MEMBERS_CACHE[memberID] = member
     return member
 
     
@@ -76,7 +76,7 @@ def get_active_projects():
     return output
 
 
-@app.route("/get_active_projects/")
+@app.route("/current-projects/")
 def get_active_projects_json():
     result = get_active_projects()
     print(result)

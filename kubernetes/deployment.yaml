@@ -1,0 +1,37 @@
+# Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: current-projects
+  namespace: current-projects
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: current-projects
+    spec:
+      containers:
+        - image: informaticslab/current-projects:latest
+          imagePullPolicy: Never
+          name: current-projects
+          env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: current-projects
+                  key: API_KEY
+            - name: API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: current-projects
+                  key: API_TOKEN
+            - name: ACTIVE_PROJECTS_LIST_ID
+              valueFrom:
+                secretKeyRef:
+                  name: current-projects
+                  key: ACTIVE_PROJECTS_LIST_ID
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
